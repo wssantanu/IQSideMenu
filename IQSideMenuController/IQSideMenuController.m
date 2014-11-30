@@ -68,6 +68,54 @@ IQSideMenuControllerWidthCalculatorBlock percentCalculator(CGFloat percentOfPare
     IQSideMenuScrollView *_scrollView;
 }
 
+@synthesize menuViewController = _menuViewController;
+@synthesize contentViewController = _contentViewController;
+
+#pragma mark - Setters and Getters
+- (UIViewController *) menuViewController {
+    @synchronized (self) {
+        return _menuViewController;
+    }
+}
+
+- (void) setMenuViewController:(UIViewController *)menuViewController {
+    @synchronized (self) {
+        [menuViewController removeFromParentViewController];
+        [[menuViewController view] removeFromSuperview];
+        
+        [_menuViewController removeFromParentViewController];
+        [[_menuViewController view] removeFromSuperview];
+        
+        _menuViewController = menuViewController;
+        
+        if ([self isViewLoaded]) {
+            [self insertMenuView];
+        }
+    }
+}
+
+- (UIViewController *) contentViewController {
+    @synchronized (self) {
+        return _contentViewController;
+    }
+}
+
+- (void) setContentViewController:(UIViewController *)contentViewController {
+    @synchronized (self) {
+        [contentViewController removeFromParentViewController];
+        [[contentViewController view] removeFromSuperview];
+        
+        [_contentViewController removeFromParentViewController];
+        [[_contentViewController view] removeFromSuperview];
+        
+        _contentViewController = contentViewController;
+        
+        if ([self isViewLoaded]) {
+            [self insertContentView];
+        }
+    }
+}
+
 #pragma mark - Init
 - (void) designedInit {
     [self setAutomaticallyAdjustsScrollViewInsets:NO];
@@ -98,6 +146,17 @@ IQSideMenuControllerWidthCalculatorBlock percentCalculator(CGFloat percentOfPare
     return self;
 }
 
+- (instancetype) initWithMenuViewController:(UIViewController *)menuViewController
+                   andContentViewController:(UIViewController *)contentViewController {
+    self = [super init];
+    if (self) {
+        [self designedInit];
+        [self setMenuViewController:menuViewController];
+        [self setContentViewController:contentViewController];
+    }
+    return self;
+}
+
 - (void) loadView {
     //create main view
     [self setView:[[UIView alloc] initWithFrame:[[UIScreen mainScreen] applicationFrame]]];
@@ -107,7 +166,7 @@ IQSideMenuControllerWidthCalculatorBlock percentCalculator(CGFloat percentOfPare
     
     //internal scrollView
     _scrollView = [[IQSideMenuScrollView alloc] initWithFrame:[[self view] bounds]];
-    [_scrollView setClipsToBounds:YES];
+    [_scrollView setClipsToBounds:NO];
     [_scrollView setBackgroundColor:[UIColor clearColor]];
     [_scrollView setAutoresizingMask:UIViewAutoresizingNone];
     [_scrollView setShowsHorizontalScrollIndicator:NO];
@@ -120,7 +179,7 @@ IQSideMenuControllerWidthCalculatorBlock percentCalculator(CGFloat percentOfPare
     [[self view] addSubview:_scrollView];
     
     //insert external subviews if didn`t yet
-    [self insertMainView];
+    [self insertMenuView];
     [self insertContentView];
 }
 
@@ -154,7 +213,7 @@ IQSideMenuControllerWidthCalculatorBlock percentCalculator(CGFloat percentOfPare
 }
 
 #pragma mark - Implementation
-- (void) insertMainView {
+- (void) insertMenuView {
     if (![_menuViewController view]) {
         return;
     }

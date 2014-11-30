@@ -43,6 +43,10 @@ IQSideMenuControllerWidthCalculatorBlock percentCalculator(CGFloat percentOfPare
 @property (atomic, strong) IQSideMenuControllerWidthCalculatorBlock menuWidthCalculatorBlock;
 @property (atomic, strong) IQSideMenuControllerAnimationProgressTrackingBlock animationProgressTrackingBlock;
 
+#pragma mark - Init
+- (instancetype) initWithMenuViewController:(UIViewController *)menuViewController
+                   andContentViewController:(UIViewController *)contentViewController;
+
 #pragma mark - Interaction methods
 - (void) toggleMenuAnimated:(BOOL)animated;
 

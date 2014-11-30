@@ -10,6 +10,7 @@
 		A716B5511A2B5DE900ECC41F /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = A716B54A1A2B5DE900ECC41F /* AppDelegate.m */; };
 		A716B5531A2B5DE900ECC41F /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = A716B54D1A2B5DE900ECC41F /* main.m */; };
 		A716B5561A2B5E2F00ECC41F /* IQSideMenuController.m in Sources */ = {isa = PBXBuildFile; fileRef = A716B5551A2B5E2F00ECC41F /* IQSideMenuController.m */; };
+		A716B55A1A2B7B6700ECC41F /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A716B5591A2B7B6700ECC41F /* Images.xcassets */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -19,6 +20,7 @@
 		A716B54D1A2B5DE900ECC41F /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		A716B5541A2B5E2F00ECC41F /* IQSideMenuController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IQSideMenuController.h; sourceTree = "<group>"; };
 		A716B5551A2B5E2F00ECC41F /* IQSideMenuController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IQSideMenuController.m; sourceTree = "<group>"; };
+		A716B5591A2B7B6700ECC41F /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		A73C4D8B1A2B5BD100F1908F /* IQSideMenu.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = IQSideMenu.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -74,6 +76,7 @@
 		A716B54E1A2B5DE900ECC41F /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				A716B5591A2B7B6700ECC41F /* Images.xcassets */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -159,6 +162,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A716B55A1A2B7B6700ECC41F /* Images.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -258,6 +262,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				INFOPLIST_FILE = "$(SRCROOT)/IQSideMenuDemo/Other/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 5.1.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -269,6 +274,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				INFOPLIST_FILE = "$(SRCROOT)/IQSideMenuDemo/Other/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 5.1.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";

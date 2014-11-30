@@ -23,6 +23,7 @@
 //  THE SOFTWARE.
 
 #import "AppDelegate.h"
+#import "IQSideMenuController.h"
 
 @interface AppDelegate ()
 
@@ -32,7 +33,23 @@
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-    // Override point for customization after application launch.
+    UIViewController *menuController = [UIViewController new];
+    [[menuController view] setBackgroundColor:[UIColor redColor]];
+    
+    UITableViewController *tableViewController = [UITableViewController new];
+    UINavigationController *contentViewController = [[UINavigationController alloc]
+                                                     initWithRootViewController:tableViewController];
+    
+    IQSideMenuController *sideMenuController = [[IQSideMenuController alloc] initWithMenuViewController:menuController
+                                                                               andContentViewController:contentViewController];
+    
+    [self setWindow:[[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]]];
+    [[self window] setRootViewController:sideMenuController];
+    [[self window] makeKeyAndVisible];
+    
+    //use it to toggle state from button handler or other code
+    //[sideMenuController toggleMenuAnimated:NO];
+    
     return YES;
 }
 
