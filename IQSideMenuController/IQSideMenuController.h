@@ -2,8 +2,7 @@
 //  IQSideMenuController.h
 //  IQSideMenu
 //
-//  Created by Alexander Orlov on 30.11.14.
-//  Copyright (c) 2014 Alexander Orlov. All rights reserved.
+//  Copyright © 2014 Alexander Orlov
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
 //  of this software and associated documentation files (the "Software"), to deal
@@ -25,6 +24,26 @@
 
 #import <UIKit/UIKit.h>
 
+#pragma mark - Built-in calculators for menu width
+typedef CGFloat (^IQSideMenuControllerWidthCalculatorBlock)(CGFloat sideMenuControllerWidth);
+typedef void (^IQSideMenuControllerAnimationProgressTrackingBlock)(CGFloat openingProgressPercent,
+                                                                   UIView *menuView,
+                                                                   UIView *contentView);
+
+//keeps constant width in absolute (pixels)
+IQSideMenuControllerWidthCalculatorBlock constantCalculator(CGFloat constantWidth);
+
+//keeps constant dependence of menuWidth from parent width
+IQSideMenuControllerWidthCalculatorBlock percentCalculator(CGFloat percentOfParentWidth);
+
+#pragma mark - IQSideMenuController
 @interface IQSideMenuController : UIViewController
+
+@property (atomic, strong) UIViewController *menuViewController, *contentViewController;
+@property (atomic, strong) IQSideMenuControllerWidthCalculatorBlock menuWidthCalculatorBlock;
+@property (atomic, strong) IQSideMenuControllerAnimationProgressTrackingBlock animationProgressTrackingBlock;
+
+#pragma mark - Interaction methods
+- (void) toggleMenuAnimated:(BOOL)animated;
 
 @end
