@@ -3,7 +3,7 @@ IQSideMenu
 
 Best side menu for your iOS Apps.
 
-https://travis-ci.org/IQCoders/IQSideMenu.svg?branch=master
+[![Build Status](https://travis-ci.org/IQCoders/IQSideMenu.svg?branch=master)](https://travis-ci.org/IQCoders/IQSideMenu)
 
 * Available by MIT License
 * Objective-C
