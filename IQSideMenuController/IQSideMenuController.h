@@ -25,10 +25,12 @@
 #import <UIKit/UIKit.h>
 
 #pragma mark - Built-in calculators for menu width
+
 typedef CGFloat (^IQSideMenuControllerWidthCalculatorBlock)(CGFloat sideMenuControllerWidth);
+
 typedef void (^IQSideMenuControllerAnimationProgressTrackingBlock)(CGFloat openingProgressPercent,
-                                                                   UIView *menuView,
-                                                                   UIView *contentView);
+        UIView *menuView,
+        UIView *contentView);
 
 //keeps constant width in absolute (pixels)
 IQSideMenuControllerWidthCalculatorBlock constantCalculator(CGFloat constantWidth);
@@ -37,17 +39,20 @@ IQSideMenuControllerWidthCalculatorBlock constantCalculator(CGFloat constantWidt
 IQSideMenuControllerWidthCalculatorBlock percentCalculator(CGFloat percentOfParentWidth);
 
 #pragma mark - IQSideMenuController
+
 @interface IQSideMenuController : UIViewController
 
-@property (atomic, strong) UIViewController *menuViewController, *contentViewController;
-@property (atomic, strong) IQSideMenuControllerWidthCalculatorBlock menuWidthCalculatorBlock;
-@property (atomic, strong) IQSideMenuControllerAnimationProgressTrackingBlock animationProgressTrackingBlock;
+@property(atomic, strong) UIViewController *menuViewController, *contentViewController;
+@property(atomic, strong) IQSideMenuControllerWidthCalculatorBlock menuWidthCalculatorBlock;
+@property(atomic, strong) IQSideMenuControllerAnimationProgressTrackingBlock animationProgressTrackingBlock;
 
 #pragma mark - Init
-- (instancetype) initWithMenuViewController:(UIViewController *)menuViewController
-                   andContentViewController:(UIViewController *)contentViewController;
+
+- (instancetype)initWithMenuViewController:(UIViewController *)menuViewController
+                  andContentViewController:(UIViewController *)contentViewController;
 
 #pragma mark - Interaction methods
-- (void) toggleMenuAnimated:(BOOL)animated;
+
+- (void)toggleMenuAnimated:(BOOL)animated;
 
 @end
