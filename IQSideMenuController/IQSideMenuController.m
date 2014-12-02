@@ -24,7 +24,7 @@
 
 #import "IQSideMenuController.h"
 
-static const CGFloat standartMenuWidthPercent = 0.85;
+static const CGFloat initialMenuWidthPercent = 0.85;
 
 #pragma mark - Built-in calculators for menu width
 IQSideMenuControllerWidthCalculatorBlock constantCalculator(CGFloat constantWidth) {
@@ -33,7 +33,7 @@ IQSideMenuControllerWidthCalculatorBlock constantCalculator(CGFloat constantWidt
             return constantWidth;
         }
         
-        return sideMenuControllerWidth * standartMenuWidthPercent;
+        return sideMenuControllerWidth * initialMenuWidthPercent;
     };
 }
 
@@ -43,7 +43,7 @@ IQSideMenuControllerWidthCalculatorBlock percentCalculator(CGFloat percentOfPare
             return sideMenuControllerWidth * percentOfParentWidth;
         }
         
-        return sideMenuControllerWidth * standartMenuWidthPercent;
+        return sideMenuControllerWidth * initialMenuWidthPercent;
     };
 }
 
@@ -64,12 +64,11 @@ IQSideMenuControllerWidthCalculatorBlock percentCalculator(CGFloat percentOfPare
 @end
 
 @implementation IQSideMenuController {
+    UIViewController *_menuViewController;
+    UIViewController *_contentViewController;
     CGFloat _currentPercentOfAnimation;
     IQSideMenuScrollView *_scrollView;
 }
-
-@synthesize menuViewController = _menuViewController;
-@synthesize contentViewController = _contentViewController;
 
 #pragma mark - Setters and Getters
 - (UIViewController *) menuViewController {
@@ -118,7 +117,9 @@ IQSideMenuControllerWidthCalculatorBlock percentCalculator(CGFloat percentOfPare
 
 #pragma mark - Init
 - (void) designedInit {
-    [self setAutomaticallyAdjustsScrollViewInsets:NO];
+    if ([self respondsToSelector:@selector(setAutomaticallyAdjustsScrollViewInsets:)]) {
+        [self setAutomaticallyAdjustsScrollViewInsets:NO];
+    }
 }
 
 #pragma mark - UIViewController Lifecycle
@@ -185,15 +186,19 @@ IQSideMenuControllerWidthCalculatorBlock percentCalculator(CGFloat percentOfPare
 
 - (void) viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    
-    [self addObserver:self forKeyPath:@"frame" options:NSKeyValueObservingOptionNew context:NULL];
+
+    if ([self respondsToSelector:@selector(addObserver:forKeyPath:options:context:)]) {
+        [self addObserver:self forKeyPath:[NSString stringWithFormat:@"frame"] options:NSKeyValueObservingOptionNew context:NULL];
+    }
     [self performLayout];
 }
 
 - (void) viewDidDisappear:(BOOL)animated {
     [super viewDidDisappear:animated];
-    
-    [self removeObserver:self forKeyPath:@"frame"];
+
+    if ([self respondsToSelector:@selector(removeObserver:forKeyPath:)]) {
+        [self removeObserver:self forKeyPath:[NSString stringWithFormat:@"frame"]];
+    }
 }
 
 - (void) willAnimateRotationToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation
@@ -268,7 +273,7 @@ IQSideMenuControllerWidthCalculatorBlock percentCalculator(CGFloat percentOfPare
     IQSideMenuControllerWidthCalculatorBlock currentMenuWidthCalculator = _menuWidthCalculatorBlock;
     
     if (!currentMenuWidthCalculator) {
-        currentMenuWidthCalculator = percentCalculator(standartMenuWidthPercent);
+        currentMenuWidthCalculator = percentCalculator(initialMenuWidthPercent);
     }
     
     CGFloat menuViewWidth = currentMenuWidthCalculator([[self view] bounds].size.width);
@@ -304,7 +309,7 @@ IQSideMenuControllerWidthCalculatorBlock percentCalculator(CGFloat percentOfPare
 
 - (void) performAnimationWithPercent:(CGFloat)animationPercent {
     if (_animationProgressTrackingBlock) {
-        _animationProgressTrackingBlock(_currentPercentOfAnimation, [_menuViewController view], [_contentViewController view]);
+        _animationProgressTrackingBlock(animationPercent, [_menuViewController view], [_contentViewController view]);
     }
 }
 
