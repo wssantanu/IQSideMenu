@@ -194,7 +194,9 @@ IQSideMenuControllerWidthCalculatorBlock percentCalculator(CGFloat percentOfPare
     [super viewWillAppear:animated];
 
     if ([self respondsToSelector:@selector(addObserver:forKeyPath:options:context:)]) {
-        [self addObserver:self forKeyPath:[NSString stringWithFormat:@"frame"] options:NSKeyValueObservingOptionNew context:NULL];
+        [[self view] addObserver:self
+                      forKeyPath:[NSString stringWithFormat:@"frame"]
+                         options:NSKeyValueObservingOptionNew context:NULL];
     }
     [self performLayout];
 }
@@ -203,7 +205,8 @@ IQSideMenuControllerWidthCalculatorBlock percentCalculator(CGFloat percentOfPare
     [super viewDidDisappear:animated];
 
     if ([self respondsToSelector:@selector(removeObserver:forKeyPath:)]) {
-        [self removeObserver:self forKeyPath:[NSString stringWithFormat:@"frame"]];
+        [[self view] removeObserver:self
+                         forKeyPath:[NSString stringWithFormat:@"frame"]];
     }
 }
 
